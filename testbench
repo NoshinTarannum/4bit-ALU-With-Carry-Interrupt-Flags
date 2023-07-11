@@ -1,0 +1,95 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
+ 
+ENTITY TB_ALU IS
+END TB_ALU;
+ 
+ARCHITECTURE behavior OF TB_ALU IS 
+ 
+    -- Component Declaration for the Unit Under Test (UUT)
+ 
+    COMPONENT ALU
+    PORT(
+         inp_a : IN  signed(3 downto 0);
+         inp_b : IN  signed(3 downto 0);
+			inp_c : IN STD_LOGIC;
+         sel : IN  std_logic_vector(3 downto 0);
+         carry_f : OUT  std_logic;
+         sign_f : OUT  std_logic;
+         zero_f : OUT  std_logic;
+         carry_outp : OUT  std_logic;
+         outp : OUT  signed(3 downto 0)
+        );
+    END COMPONENT;
+    
+
+   --Inputs
+   signal inp_a : signed(3 downto 0) := (others => '0');
+   signal inp_b : signed(3 downto 0) := (others => '0');
+	signal inp_c : std_logic := '0';
+   signal sel : std_logic_vector(3 downto 0) := (others => '0');
+
+ 	--Outputs
+   signal carry_f : std_logic;
+   signal sign_f : std_logic;
+   signal zero_f : std_logic;
+   signal carry_outp : std_logic;
+   signal outp : signed(3 downto 0);
+ 
+	BEGIN
+ 
+	-- Instantiate the Unit Under Test (UUT)
+   uut: ALU PORT MAP (
+          inp_a => inp_a,
+          inp_b => inp_b,
+			 inp_c => inp_c,
+          sel => sel,
+          carry_f => carry_f,
+          sign_f => sign_f,
+          zero_f => zero_f,
+          carry_outp => carry_outp,
+          outp => outp
+        );
+
+   -- Stimulus process
+   stim_proc: process
+   begin		
+      -- hold reset state for 100 ns.
+      wait for 100 ns;	
+
+      -- insert stimulus here 
+
+       inp_a <= "1111";
+		 inp_b <= "1010";
+		 inp_c <= '1';
+		 
+		 sel <= "0000";
+		 wait for 100 ns;
+		 sel <= "0001";
+		 wait for 100 ns;
+		 sel <= "0010";
+		 wait for 100 ns;
+		 sel <= "0011";
+		 wait for 100 ns;
+		 sel <= "0100";
+		 wait for 100 ns;
+		 sel <= "0101";
+		 wait for 100 ns;
+		 sel <= "0110";
+		 wait for 100 ns;
+		 sel <= "0111";
+		 wait for 100 ns;
+		 sel <= "1000";
+		 wait for 100 ns;
+		 sel <= "1001";
+		 wait for 100 ns;
+		 sel <= "1010";
+		 wait for 100 ns;
+		 sel <= "1011";
+		 wait for 100 ns;
+		 sel <= "1100";
+		
+   end process;
+
+END;
